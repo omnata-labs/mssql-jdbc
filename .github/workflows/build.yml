@@ -1,0 +1,47 @@
+name: Build JDBC Driver
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        jre-version: [11, 17]
+        include:
+          - jre-version: 11
+            java-version: 11
+            profile: jre11
+          - jre-version: 17
+            java-version: 17
+            profile: jre17
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Set up JDK ${{ matrix.java-version }}
+      uses: actions/setup-java@v4
+      with:
+        java-version: ${{ matrix.java-version }}
+        distribution: 'temurin'
+        cache: maven
+    
+    - name: Build with Maven
+      env:
+        mssql_jdbc_test_connection_properties: ${{ secrets.MSSQL_BUILD_INSTANCE }}
+      run: mvn install -P${{ matrix.profile }}
+    
+    - name: Upload JAR artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: mssql-jdbc-${{ matrix.profile }}
+        path: target/mssql-jdbc-*.jar
+        if-no-files-found: error
+        retention-days: 30
