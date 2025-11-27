@@ -35,9 +35,9 @@ test {
     }
 }
 
-if (!hasProperty('buildProfile') || (hasProperty('buildProfile') && buildProfile == "jre25")) {
+if (!hasProperty('buildProfile') || (hasProperty('buildProfile') && buildProfile == "jre11")) {
 
-	jreVersion = "jre25"
+	jreVersion = "jre11"
 	excludedFile = 'com/microsoft/sqlserver/jdbc/SQLServerJdbc42.java'
 	jar {
 		manifest {
@@ -45,8 +45,8 @@ if (!hasProperty('buildProfile') || (hasProperty('buildProfile') && buildProfile
 		}
 	}
 	java {
-		sourceCompatibility = JavaVersion.VERSION_25
-		targetCompatibility = JavaVersion.VERSION_25
+		sourceCompatibility = JavaVersion.VERSION_11
+		targetCompatibility = JavaVersion.VERSION_11
 	}
 	test {
     useJUnitPlatform {
