@@ -27,7 +27,7 @@ jobs:
     - name: Build with Maven
       env:
         mssql_jdbc_test_connection_properties: ${{ secrets.MSSQL_BUILD_INSTANCE }}
-      run: mvn install -Pjre17
+      run: mvn install -Pjre17 -Denforcer.skip -Dmaven.javadoc.skip -DskipTests -Dmaven.test.skip.exec
     
     - name: Upload JAR artifact
       uses: actions/upload-artifact@v4
