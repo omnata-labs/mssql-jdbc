@@ -2920,8 +2920,8 @@ final class SocketFinder {
 
     private Socket getConnectedSocket(InetSocketAddress addr, int timeoutInMilliSeconds) throws IOException {
         assert timeoutInMilliSeconds != 0 : "timeout cannot be zero";
-        if (addr.isUnresolved())
-            throw new java.net.UnknownHostException();
+        //if (addr.isUnresolved())
+        //    throw new java.net.UnknownHostException();
         selectedSocket = getSocketFactory().createSocket();
         if (!selectedSocket.isConnected()) {
             selectedSocket.connect(addr, timeoutInMilliSeconds);
