@@ -326,6 +326,9 @@
 		</profile>
 		<profile>
 			<id>jre11</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<dependencies>
 				<!-- JDK 11 compatible Mockito -->
 				<dependency>
@@ -488,9 +491,6 @@
 		</profile>
 		<profile>
 			<id>jre25</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
 			<dependencies>
 				<!-- JDK 25 compatible Mockito -->
 				<dependency>
