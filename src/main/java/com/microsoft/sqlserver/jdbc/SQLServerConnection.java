@@ -216,6 +216,9 @@ public class SQLServerConnection implements ISQLServerConnection, java.io.Serial
     /** sendTemporalDataTypesAsStringForBulkCopy flag */
     private boolean sendTemporalDataTypesAsStringForBulkCopy = true;
 
+    public String socketHostOverride = null;
+    public Integer socketPortOverride = null;
+
     /**
      * https://docs.microsoft.com/sql/t-sql/functions/serverproperty-transact-sql
      */
@@ -3840,7 +3843,17 @@ public class SQLServerConnection implements ISQLServerConnection, java.io.Serial
                                     .finer(toString() + " Connection open - attempt end time: " + intervalExpire);
                             loggerResiliency.finer(toString() + " Connection open - attempt number: " + attemptNumber);
                         }
-
+                        if (socketHostOverride != null){
+                            if (socketPortOverride == null){
+                                socketPortOverride = currentConnectPlaceHolder.getPortNumber();
+                            }
+                            currentConnectPlaceHolder = ServerPortPlaceHolder(
+                                socketHostOverride,
+                                socketPortOverride,
+                                currentConnectPlaceholder.getInstanceName(),
+                                false
+                            );
+                        }
                         // Attempt login. Use Place holder to make sure that the failoverdemand is done.
                         InetSocketAddress inetSocketAddress = connectHelper(currentConnectPlaceHolder,
                                 timerRemaining(intervalExpire), timeout, useParallel, useTnir, (0 == attemptNumber), // TNIR
