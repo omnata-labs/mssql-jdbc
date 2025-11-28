@@ -2554,7 +2554,11 @@ public class SQLServerConnection implements ISQLServerConnection, java.io.Serial
             SQLServerPooledConnection pooledConnection) throws SQLServerException {
         try {
             if (propsIn != null) {
-
+                socketHostOverride = propsIn.getProperty("socketHostOverride");
+                String socketPortOverrideString = propsIn.getProperty("socketPortOverride");
+                if (socketPortOverrideString!=null){
+                    socketPortOverride = Integer.parseInt(socketPortOverrideString);
+                }
                 activeConnectionProperties = (Properties) propsIn.clone();
 
                 pooledConnectionParent = pooledConnection;
