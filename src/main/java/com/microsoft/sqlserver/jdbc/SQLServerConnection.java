@@ -4255,6 +4255,7 @@ public class SQLServerConnection implements ISQLServerConnection, java.io.Serial
             int timeOutFullInSeconds, boolean useParallel, boolean useTnir, boolean isTnirFirstAttempt,
             int timeOutsliceInMillisForFullTimeout) throws SQLServerException {
         // Make the initial tcp-ip connection.
+        throw new SQLServerException("Temporary: "+serverInfo.getServerName());
         if (connectionlogger.isLoggable(Level.FINE)) {
             connectionlogger.fine(toString() + " Connecting with server: " + serverInfo.getServerName() + " port: "
                     + serverInfo.getPortNumber() + " Timeout slice: " + timeOutSliceInMillis + " Timeout Full: "
