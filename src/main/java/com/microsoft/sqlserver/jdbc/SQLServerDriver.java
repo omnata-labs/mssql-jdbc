@@ -1362,6 +1362,7 @@ public final class SQLServerDriver implements java.sql.Driver {
     public java.sql.Connection connect(String url, Properties suppliedProperties) throws SQLServerException {
         loggerExternal.entering(getClassNameLogging(), "connect", "Arguments not traced.");
         SQLServerConnection result = null;
+        
         if (loggerExternal.isLoggable(Level.FINE)) {
             loggerExternal.log(Level.FINE,
                     "Microsoft JDBC Driver " + SQLJdbcVersion.MAJOR + "." + SQLJdbcVersion.MINOR + "."
