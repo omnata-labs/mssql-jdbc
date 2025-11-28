@@ -3611,9 +3611,6 @@ public class SQLServerConnection implements ISQLServerConnection, java.io.Serial
                 sessionRecovery.setLoginParameters(instanceValue, nPort, fo,
                         ((loginTimeoutSeconds > queryTimeoutSeconds) && queryTimeoutSeconds > 0) ? queryTimeoutSeconds
                                                                                                  : loginTimeoutSeconds);
-                if (1==1){
-                    throw new RuntimeException("serverNameProperty:"+serverNameProperty+","+activeConnectionProperties.getProperty(serverNameProperty));
-                }
                 login(activeConnectionProperties.getProperty(serverNameProperty), instanceValue, nPort, mirror, fo,
                         loginTimeoutSeconds, startTime);
             } else {
@@ -3859,6 +3856,9 @@ public class SQLServerConnection implements ISQLServerConnection, java.io.Serial
                                 currentConnectPlaceHolder.getInstanceName(),
                                 false
                             );
+                        }
+                        if (1==1){
+                            throw new RuntimeException("currentConnectPlaceHolder:"+currentConnectPlaceHolder.getServerName());
                         }
                         // Attempt login. Use Place holder to make sure that the failoverdemand is done.
                         InetSocketAddress inetSocketAddress = connectHelper(currentConnectPlaceHolder,
