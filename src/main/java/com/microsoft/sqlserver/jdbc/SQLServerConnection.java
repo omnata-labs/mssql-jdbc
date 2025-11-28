@@ -3853,7 +3853,7 @@ public class SQLServerConnection implements ISQLServerConnection, java.io.Serial
                             }
                             currentConnectPlaceHolder = ServerPortPlaceHolder(
                                 socketHostOverride,
-                                socketPortOverride,
+                                socketPortOverride.intValue(),
                                 currentConnectPlaceHolder.getInstanceName(),
                                 false
                             );
