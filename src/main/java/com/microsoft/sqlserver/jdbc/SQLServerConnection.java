@@ -2560,10 +2560,6 @@ public class SQLServerConnection implements ISQLServerConnection, java.io.Serial
                     socketPortOverride = Integer.parseInt(socketPortOverrideString);
                 }
                 activeConnectionProperties = (Properties) propsIn.clone();
-                
-                if (1==1){
-                    throw new RuntimeException("socketHostOverride:"+socketHostOverride);
-                }
                 pooledConnectionParent = pooledConnection;
 
                 String trustStorePassword = activeConnectionProperties
@@ -4258,9 +4254,6 @@ public class SQLServerConnection implements ISQLServerConnection, java.io.Serial
             int timeOutFullInSeconds, boolean useParallel, boolean useTnir, boolean isTnirFirstAttempt,
             int timeOutsliceInMillisForFullTimeout) throws SQLServerException {
         // Make the initial tcp-ip connection.
-        if (1==1){
-            throw new RuntimeException("Temporary: "+serverInfo.getServerName());
-        }
         if (connectionlogger.isLoggable(Level.FINE)) {
             connectionlogger.fine(toString() + " Connecting with server: " + serverInfo.getServerName() + " port: "
                     + serverInfo.getPortNumber() + " Timeout slice: " + timeOutSliceInMillis + " Timeout Full: "
