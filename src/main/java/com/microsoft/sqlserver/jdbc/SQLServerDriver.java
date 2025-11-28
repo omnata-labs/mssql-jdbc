@@ -1363,7 +1363,7 @@ public final class SQLServerDriver implements java.sql.Driver {
         loggerExternal.entering(getClassNameLogging(), "connect", "Arguments not traced.");
         SQLServerConnection result = null;
         if (1==1){
-            throw new RuntimeException("earlier:"+propsIn.getProperty("socketHostOverride"));
+            throw new RuntimeException("earlier:"+suppliedProperties.getProperty("socketHostOverride"));
         }
         if (loggerExternal.isLoggable(Level.FINE)) {
             loggerExternal.log(Level.FINE,
