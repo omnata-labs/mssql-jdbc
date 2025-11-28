@@ -5978,8 +5978,6 @@ public class SQLServerConnection implements ISQLServerConnection, java.io.Serial
 
     private void logon(LogonCommand command) throws SQLServerException {
         SSPIAuthentication authentication = null;
-        String serverNameForLogon = currentConnectPlaceHolder.getServerName();
-        
         if (integratedSecurity) {
             if (AuthenticationScheme.NATIVE_AUTHENTICATION == intAuthScheme) {
                 authentication = new AuthenticationJNI(this, currentConnectPlaceHolder.getServerName(),
