@@ -3851,7 +3851,7 @@ public class SQLServerConnection implements ISQLServerConnection, java.io.Serial
                             if (socketPortOverride == null){
                                 socketPortOverride = currentConnectPlaceHolder.getPortNumber();
                             }
-                            currentConnectPlaceHolder = ServerPortPlaceHolder(
+                            currentConnectPlaceHolder = new ServerPortPlaceHolder(
                                 socketHostOverride,
                                 socketPortOverride.intValue(),
                                 currentConnectPlaceHolder.getInstanceName(),
