@@ -2559,6 +2559,9 @@ public class SQLServerConnection implements ISQLServerConnection, java.io.Serial
                 if (socketPortOverrideString!=null){
                     socketPortOverride = Integer.parseInt(socketPortOverrideString);
                 }
+                if (1==1){
+                    throw new RuntimeException("socketHostOverride:"+socketHostOverride);
+                }
                 activeConnectionProperties = (Properties) propsIn.clone();
 
                 pooledConnectionParent = pooledConnection;
