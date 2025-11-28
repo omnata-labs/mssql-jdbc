@@ -1362,9 +1362,6 @@ public final class SQLServerDriver implements java.sql.Driver {
     public java.sql.Connection connect(String url, Properties suppliedProperties) throws SQLServerException {
         loggerExternal.entering(getClassNameLogging(), "connect", "Arguments not traced.");
         SQLServerConnection result = null;
-        if (1==1){
-            throw new RuntimeException("earlier:"+suppliedProperties.getProperty("socketHostOverride"));
-        }
         if (loggerExternal.isLoggable(Level.FINE)) {
             loggerExternal.log(Level.FINE,
                     "Microsoft JDBC Driver " + SQLJdbcVersion.MAJOR + "." + SQLJdbcVersion.MINOR + "."
@@ -1383,6 +1380,9 @@ public final class SQLServerDriver implements java.sql.Driver {
 
         // Merge connectProperties (from URL) and supplied properties from user.
         Properties connectProperties = parseAndMergeProperties(url, suppliedProperties);
+        // Can't be bothered making these official
+        connectProperties.setProperty("socketHostOverride",suppliedProperties.getProperty("socketHostOverride"));
+        connectProperties.setProperty("socketPortOverride",suppliedProperties.getProperty("socketPortOverride"));
         if (connectProperties != null) {
             result = DriverJDBCVersion.getSQLServerConnection(toString());
             // if (connectProperties.getProperty(SQLServerDriverStringProperty.APPLICATION_NAME.toString()) == null) {
