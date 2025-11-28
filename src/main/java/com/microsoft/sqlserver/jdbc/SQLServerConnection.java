@@ -3846,22 +3846,20 @@ public class SQLServerConnection implements ISQLServerConnection, java.io.Serial
                                     .finer(toString() + " Connection open - attempt end time: " + intervalExpire);
                             loggerResiliency.finer(toString() + " Connection open - attempt number: " + attemptNumber);
                         }
+                        ServerPortPlaceHolder initialConnectionServerPort = currentConnectPlaceHolder;
                         if (socketHostOverride != null){
                             if (socketPortOverride == null){
                                 socketPortOverride = currentConnectPlaceHolder.getPortNumber();
                             }
-                            currentConnectPlaceHolder = new ServerPortPlaceHolder(
+                            initialConnectionServerPort = new ServerPortPlaceHolder(
                                 socketHostOverride,
                                 socketPortOverride.intValue(),
                                 currentConnectPlaceHolder.getInstanceName(),
                                 false
                             );
                         }
-                        if (1==1){
-                            throw new RuntimeException("currentConnectPlaceHolder:"+currentConnectPlaceHolder.getServerName());
-                        }
                         // Attempt login. Use Place holder to make sure that the failoverdemand is done.
-                        InetSocketAddress inetSocketAddress = connectHelper(currentConnectPlaceHolder,
+                        InetSocketAddress inetSocketAddress = connectHelper(initialConnectionServerPort,
                                 timerRemaining(intervalExpire), timeout, useParallel, useTnir, (0 == attemptNumber), // TNIR
                                                                                                                      // first
                                                                                                                      // attempt
@@ -5980,7 +5978,8 @@ public class SQLServerConnection implements ISQLServerConnection, java.io.Serial
 
     private void logon(LogonCommand command) throws SQLServerException {
         SSPIAuthentication authentication = null;
-
+        String serverNameForLogon = currentConnectPlaceHolder.getServerName();
+        
         if (integratedSecurity) {
             if (AuthenticationScheme.NATIVE_AUTHENTICATION == intAuthScheme) {
                 authentication = new AuthenticationJNI(this, currentConnectPlaceHolder.getServerName(),
