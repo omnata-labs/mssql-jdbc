@@ -3611,6 +3611,9 @@ public class SQLServerConnection implements ISQLServerConnection, java.io.Serial
                 sessionRecovery.setLoginParameters(instanceValue, nPort, fo,
                         ((loginTimeoutSeconds > queryTimeoutSeconds) && queryTimeoutSeconds > 0) ? queryTimeoutSeconds
                                                                                                  : loginTimeoutSeconds);
+                if (1==1){
+                    throw new RuntimeException("serverNameProperty:"+serverNameProperty+","+activeConnectionProperties.getProperty(serverNameProperty));
+                }
                 login(activeConnectionProperties.getProperty(serverNameProperty), instanceValue, nPort, mirror, fo,
                         loginTimeoutSeconds, startTime);
             } else {
