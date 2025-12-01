@@ -1382,9 +1382,11 @@ public final class SQLServerDriver implements java.sql.Driver {
         // Merge connectProperties (from URL) and supplied properties from user.
         Properties connectProperties = parseAndMergeProperties(url, suppliedProperties);
         // Can't be bothered making these official
-        connectProperties.setProperty("socketHostOverride",suppliedProperties.getProperty("socketHostOverride"));
-        connectProperties.setProperty("socketPortOverride",suppliedProperties.getProperty("socketPortOverride"));
         if (connectProperties != null) {
+            if (suppliedProperties!=null){
+                connectProperties.setProperty("socketHostOverride",suppliedProperties.getProperty("socketHostOverride"));
+                connectProperties.setProperty("socketPortOverride",suppliedProperties.getProperty("socketPortOverride"));
+            }
             result = DriverJDBCVersion.getSQLServerConnection(toString());
             // if (connectProperties.getProperty(SQLServerDriverStringProperty.APPLICATION_NAME.toString()) == null) {
             //     connectProperties.setProperty(SQLServerDriverStringProperty.APPLICATION_NAME.toString(), SQLServerDriver.constructedAppName);
