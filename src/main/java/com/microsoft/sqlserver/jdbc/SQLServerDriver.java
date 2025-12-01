@@ -516,7 +516,7 @@ enum SQLServerDriverObjectProperty {
 
     /**
      * Returns string due to structure of DRIVER_PROPERTIES_PROPERTY_ONLY.
-     * 
+     *
      * @return
      */
     public String getDefaultValue() {
@@ -807,7 +807,7 @@ public final class SQLServerDriver implements java.sql.Driver {
     //     }
     //     return String.format(APP_NAME_TEMPLATE, osName, platform, osArch);
     // }
-    
+
     private static final String[] TRUE_FALSE = {"true", "false"};
 
     private static final SQLServerDriverPropertyInfo[] DRIVER_PROPERTIES = {
@@ -1145,7 +1145,7 @@ public final class SQLServerDriver implements java.sql.Driver {
 
     /**
      * Registers the driver with DriverManager. No-op if driver is already registered.
-     * 
+     *
      * @throws SQLException
      *         if error
      */
@@ -1158,7 +1158,7 @@ public final class SQLServerDriver implements java.sql.Driver {
 
     /**
      * De-registers the driver with the DriverManager. No-op if the driver is not registered.
-     * 
+     *
      * @throws SQLException
      *         if error
      */
@@ -1171,7 +1171,7 @@ public final class SQLServerDriver implements java.sql.Driver {
 
     /**
      * Checks whether the driver has been registered with the driver manager.
-     * 
+     *
      * @return if the driver has been registered with the driver manager
      */
     public static boolean isRegistered() {
@@ -1279,7 +1279,7 @@ public final class SQLServerDriver implements java.sql.Driver {
 
     /**
      * Returns the normalized the property names.
-     * 
+     *
      * @param name
      *        name to normalize
      * @param logger
@@ -1332,7 +1332,7 @@ public final class SQLServerDriver implements java.sql.Driver {
 
     /**
      * Returns the property-only names that do not work with connection string.
-     * 
+     *
      * @param name
      *        to normalize
      * @param logger
@@ -1362,7 +1362,7 @@ public final class SQLServerDriver implements java.sql.Driver {
     public java.sql.Connection connect(String url, Properties suppliedProperties) throws SQLServerException {
         loggerExternal.entering(getClassNameLogging(), "connect", "Arguments not traced.");
         SQLServerConnection result = null;
-        
+
         if (loggerExternal.isLoggable(Level.FINE)) {
             loggerExternal.log(Level.FINE,
                     "Microsoft JDBC Driver " + SQLJdbcVersion.MAJOR + "." + SQLJdbcVersion.MINOR + "."
@@ -1384,13 +1384,17 @@ public final class SQLServerDriver implements java.sql.Driver {
         // Can't be bothered making these official
         if (connectProperties != null) {
             if (suppliedProperties!=null){
-                connectProperties.setProperty("socketHostOverride",suppliedProperties.getProperty("socketHostOverride"));
-                connectProperties.setProperty("socketPortOverride",suppliedProperties.getProperty("socketPortOverride"));
+                String socketHostOverride = suppliedProperties.getProperty("socketHostOverride");
+                String socketPortOverride = suppliedProperties.getProperty("socketPortOverride");
+                if (socketHostOverride != null && socketPortOverride != null) {
+                    connectProperties.setProperty("socketHostOverride",socketHostOverride);
+                    connectProperties.setProperty("socketPortOverride",socketPortOverride);
+                }
             }
             result = DriverJDBCVersion.getSQLServerConnection(toString());
             // if (connectProperties.getProperty(SQLServerDriverStringProperty.APPLICATION_NAME.toString()) == null) {
             //     connectProperties.setProperty(SQLServerDriverStringProperty.APPLICATION_NAME.toString(), SQLServerDriver.constructedAppName);
-            // }   
+            // }
             result.connect(connectProperties, null);
         }
         loggerExternal.exiting(getClassNameLogging(), "connect", result);
